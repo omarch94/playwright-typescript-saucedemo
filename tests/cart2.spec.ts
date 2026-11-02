@@ -1,18 +1,19 @@
-import { test,expect } from "@playwright/test";
-import { LoginPage} from "../pages/LoginPage";
-import { InventoryPage } from "../pages/Inventorypage";
-import { CartPage } from "../pages/CartPage";
-import { CheckoutPage } from "../pages/CheckoutPage";
-import { CheckoutOverview } from "../pages/CHeckoutOverview";
+//import { test,expect } from "@playwright/test";
+import {test,expect} from '../fixtures/testFixtures';
+//import { LoginPage} from "../pages/LoginPage";
+//import { InventoryPage } from "../pages/Inventorypage";
+//import { CartPage } from "../pages/CartPage";
+//import { CheckoutPage } from "../pages/CheckoutPage";
+//import { CheckoutOverview } from "../pages/CHeckoutOverview";
 
-test("Test Cart  with POM", async({page})=>{
+test("Test Cart  with POM", async({page,loginPage,inventoryPage,cartPage,checkoutPage,checkoutOverview})=>{
 
-    const loginPage=new LoginPage(page);
-    const inventoryPage=new InventoryPage(page);
-    const cartPage=new CartPage(page);
-    const checkoutPage=new CheckoutPage(page);
+    //const loginPage=new LoginPage(page);
+    //const inventoryPage=new InventoryPage(page);
+    //const cartPage=new CartPage(page);
+    //const checkoutPage=new CheckoutPage(page);
 
-    const checkOutOverview=new CheckoutOverview(page);
+    //const checkOutOverview=new CheckoutOverview(page);
     
     await loginPage.goto();
     
@@ -54,12 +55,12 @@ test("Test Cart  with POM", async({page})=>{
 
     await expect(page).toHaveURL(/checkout-step-two/);
     
-    const overviewBackpack= checkOutOverview.getProduct('Sauce Labs Backpack');
-    const overviewBikeLight= checkOutOverview.getProduct("Sauce Labs Bike Light");
+    const overviewBackpack= checkoutOverview.getProduct('Sauce Labs Backpack');
+    const overviewBikeLight= checkoutOverview.getProduct("Sauce Labs Bike Light");
     await expect(overviewBackpack).toBeVisible();
     await expect(overviewBikeLight).toBeVisible();  
 
- await checkOutOverview.finishOrder();
+ await checkoutOverview.finishOrder();
  await expect(page).toHaveURL(/checkout-complete/);
 
  await expect(page.getByRole('heading',{name: 'Thank you for your order!'})).toBeVisible();
