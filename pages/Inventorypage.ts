@@ -30,6 +30,10 @@ export class InventoryPage{
         .click();
     }
 
+    async goto() {
+  await this.page.goto('/inventory.html');
+}
+
     async open(){
         await this.cartLink.click();
     }
